@@ -1,0 +1,82 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Upload</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-book"></span> Bem vindo: <%= user.local.name %>!!</h1>
+        <a href="/" class="btn btn-default btn-sm">Voltar</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8">
+            <div class="well">
+                <center><h3><span class="fa fa-cloud-upload"></span> Inserir arquivo</h3></center>
+                <center>
+           
+                <form action="/upload" enctype="multipart/form-data" method="post">
+                    <div class="input-group form-group">
+                        <div class="form-group">
+                            <label>Titulo:</label>
+                            <input type="text" class="form-control" name="titulo" >
+                        </div>
+                        <div class="form-group">
+                            <label>Autor(es):</label>
+                            <input type="text" class="form-control" name="autores">
+                        </div>
+                        <div class="form-group">
+                            <label>Orientador:</label>
+                            <input type="text" class="form-control" name="orientador">
+                        </div>
+                        <div class="form-group">
+                            <label>Resumo:</label>
+                            <input type="text" class="form-control" name="resumo">
+                        </div>
+                        <div class="form-group">
+                            <label>Palavras-Chave:</label>
+                            <input type="text" class="form-control" name="palavrasChave">
+                        </div>
+                        <div class="form-group">
+                            <label>Ano:</label>
+                            <input type="text" class="form-control" name="ano">
+                        </div>
+                        <div class="form-group">
+                            <label>Link:</label>
+                            <input type="text" class="form-control" name="pageLink">
+                        </div>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" value="Artigo" checked="">Artigo
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" value="Monografia">Monografia
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="optradio" value="Relatorio" >Relatório
+                        </label>
+                        <input type="file" name="fileToInsert">
+                    </div>
+                   
+                    <button type="submit" class="btn btn-warning btn-lg">Enviar</button>
+                </form>
+                </center>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>

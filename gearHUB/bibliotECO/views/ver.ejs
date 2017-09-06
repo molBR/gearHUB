@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <title>Editar</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header text-center">
+        <h1><span class="fa fa-book"></span> Ver arquivo</h1>
+        <a href="/" class="btn btn-default btn-sm">Voltar</a>
+    </div>
+
+    <div class="row">
+
+        <!-- LOCAL INFORMATION -->
+        <div class="col-sm-2">
+        </div>
+        <div class="col-sm-8">
+            <div class="well">
+                <center><h3><span class="fa fa-pencil"></span> Informações</h3></center>
+                <center>
+           
+                <form action="/ver/"  method="post">
+                    <input type="hidden" class="form-control" name="id" value= "<%= query._id %>" > 
+                    <div class="input-group form-group">
+                        <div class="form-group">
+                            <label>Titulo:</label> <p><%= query.infoDoc.titulo %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Autores:</label> <p><%= query.infoDoc.autores %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Orientador:</label> <p><%= query.infoDoc.orientador %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Resumo:</label> <p><%= query.infoDoc.resumo %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Palavras-Chave:</label> <p><%= query.infoDoc.palavrasChave %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Tipo:</label> <p><%= query.infoDoc.tipo %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Ano:</label> <p><%= query.infoDoc.ano %></p>
+                        </div>
+                        <div class="form-group">
+                            <label>Page Link:</label> <p><%= query.infoDoc.pageLink %></p>
+                        </div>
+                        <button type="submit" class="btn btn-info btn-lg" name="botao" value="download">Download</button> 
+                </form>
+                </center>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</body>
+</html>
