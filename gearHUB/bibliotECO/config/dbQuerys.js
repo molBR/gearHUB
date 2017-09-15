@@ -10,6 +10,15 @@ var queryDocument = function(callback){
 	});
 };
 
+var queryDocFiltered = function(callback){
+
+	var q = Document.find({},{"infoDoc.blob" : 0});
+	q.exec(function(err,infoDoc){
+		callback(infoDoc);
+	});
+};
+
+
 var getDocument = function(id,callback){
 	var q = Document.find({ _id : id });
 	q.exec(function(err,infoDoc){
@@ -54,5 +63,6 @@ var deleteDocument = function(doc,callback){
 module.exports = {queryDocument : queryDocument,
 				  getDocument 	: getDocument,
 				  editDocument	: editDocument,
-				  deleteDocument : deleteDocument};
+				  deleteDocument : deleteDocument,
+				  queryDocFiltered : queryDocFiltered};
 

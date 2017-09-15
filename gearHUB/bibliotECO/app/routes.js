@@ -1,6 +1,5 @@
 var insFile         = require('../config/insertFile');
 var bd              = require('../config/dbQuerys');
-
 module.exports = function(app, passport) {
 
     // =====================================
@@ -9,12 +8,10 @@ module.exports = function(app, passport) {
 
 
     app.get('/', function(req, res) {
-        bd.queryDocument(function(resposta){ //query vazio para pegar todos os arquivos
-            res.render('index.ejs',{
-                query : resposta,
-                user : req.user
-            });
+        res.render('index.ejs',{
+            user : req.user
         });
+
     });
 
 
@@ -69,6 +66,7 @@ module.exports = function(app, passport) {
             bd.getDocument(aux,function(resposta){
                 res.render('ver.ejs',{
                     query : resposta[0],
+                    user : req.user
                 });
             });
         }else if(but=="editar"){
@@ -100,7 +98,6 @@ module.exports = function(app, passport) {
 
     app.post('/ver/',function(req, res){
         bd.getDocument(req.body.id,function(infoDoc){
-            console.log(infoDoc);
             res.set({"Content-Disposition": 'attachment; filename="'+infoDoc[0].infoDoc.titulo+'.pdf"'})
             res.send(infoDoc[0].infoDoc.blob);
         });
@@ -121,7 +118,11 @@ module.exports = function(app, passport) {
         res.render('insertedFile.ejs');
     });
 
-
+    app.get('/data.json',function(req,res){ 
+        bd.queryDocFiltered(function(data){
+            res.json(data);
+        })
+    });
 
 
     app.get('/logout', function(req, res) {
@@ -129,6 +130,8 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 };
+
+
 
 
 

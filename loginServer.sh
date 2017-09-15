@@ -1,3 +1,3 @@
 #!/bin/bash
 clear
-ssh eco@172.16.40.56
+ssh eco@200.131.157.111

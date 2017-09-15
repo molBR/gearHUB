@@ -19,6 +19,7 @@ var json		 = require('express-json'); //por esse
 var session      = require('express-session');
 var configDB = require('./config/database.js');
 
+
 // configuration ===============================================================
 app.use(favicon(__dirname + '/views/favicon.ico'));
 app.use(express.static(__dirname + '/node_modules/'));
@@ -34,7 +35,7 @@ app.use(bodyParser()); // get information from html forms //tive que trocar por.
 app.set('view engine', 'ejs'); // set up ejs for templating
 app.set('views', __dirname + '/views');
 // required for passport
-app.use(session({ secret: 'testetestado' })); // session secret
+app.use(session({ secret: 'testetestado	' })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session

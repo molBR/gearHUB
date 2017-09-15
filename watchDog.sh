@@ -5,11 +5,12 @@
 #os diretorios a serem abertos estao no arquivo services.txt
 
 i=0
+DIRHELP="/home/aluno"
 while read line; do 
-	services[$i]=$line #le os diretorios
+	services[$i]=$DIRHELP$line #le os diretorios e concatena com o home e user
 	check[$i]=false #cria um vetor dinamico de controle.
 	((i++))
-done < services.txt #funcao que le o diretorios 
+done < /home/aluno/28882/services.txt #funcao que le o diretorios 
 
 run_Closed(){ #percorre a lista de controle, se algum programa nao esta online, ativa ele.
 	i=0
@@ -17,7 +18,7 @@ run_Closed(){ #percorre a lista de controle, se algum programa nao esta online, 
 	do
 		if [ "$checkTrue" == false ]; then  #se o servico estiver off
 			echo "Serviço ${services[$i]}/server.js está offline, ativando..."
-			node ${services[$i]}/server.js &  #abre o servico
+			node ${services[$i]} &  #abre o servico
 			check[$i]=true #checa que ele esta online
 			echo "Serviço online!"
 		fi
@@ -25,11 +26,14 @@ run_Closed(){ #percorre a lista de controle, se algum programa nao esta online, 
 	done
 	echo "Todos os serviços estão online!"
 }
-
+	
 check_which(){ 
-	SERVICE=`ls -l /proc/$1/cwd`
-	SUBSTRING=$(echo $SERVICE| cut -d'>' -f 2) #pega o endereco do servico
-	SUBSTRING=${SUBSTRING:1} #corta o primeiro espaco
+	#SERVICE=`ls -l /proc/$1/cwd`
+	SERVICE=`cat /proc/$1/cmdline`
+	#echo $SERVICE
+	#SUBSTRING=$(echo $SERVICE| cut -d '/' -f 6) #pega o endereco do servico
+	SUBSTRING=`echo $SERVICE | sed 's/.*node//'`
+#SUBSTRING=${SUBSTRING:1} #corta o primeiro espaco
 	for checkSer in "${services[@]}" 
 	do
 		if [ "$SUBSTRING" == "$checkSer" ] ; then  #checa se o servico eh um dos da lista
@@ -50,10 +54,11 @@ check_process(){ #pega todos os processos node
 	run_Closed #depois de verificar quais servicoes estao ativos, chama a proxima funcao para abrir aqueles que nao estao
 }
 
-while [ 1 ] ; do
-	#timestamp
-	ts=`date ` #pega o horario
-	echo $ts: "Checando.." #imprime o horario que foi feito a checagem
-	check_process "node" #procura processos com esse nome
-	sleep 3600 #espera uma hora
-done
+#timestamp
+ts=`date ` #pega o horario
+echo $ts: "Checando.." #imprime o horario que foi feito a checagem
+cmd="sudo service mongod start"
+$cmd
+check_process "node" #procura processos com esse nome
+
+

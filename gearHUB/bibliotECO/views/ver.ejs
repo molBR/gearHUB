@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Editar</title>
+    <title>Ver</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <style>
@@ -54,7 +54,17 @@
                             <label>Page Link:</label> <p><%= query.infoDoc.pageLink %></p>
                         </div>
                         <button type="submit" class="btn btn-info btn-lg" name="botao" value="download">Download</button> 
-                </form>
+                        </form>
+                        <% if(user){ %>
+                        <br><br>
+                        <form action="/upload/" enctype="application/json">
+                        <input type="hidden" name ="id" value=  <%= query._id %> >   
+                            <button type="submit" class="btn btn-info btn-lg" name="press" value="editar">
+                                Editar
+                            </button>
+                        </form>
+                        <%}%>
+                
                 </center>
             </div>
         </div>

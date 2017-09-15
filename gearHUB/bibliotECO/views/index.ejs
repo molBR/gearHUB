@@ -5,13 +5,17 @@
 	<title>Biblioteca</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/af-2.2.0/r-2.1.1/datatables.min.css"/>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs-3.3.7/jq-2.2.4/dt-1.10.15/af-2.2.0/r-2.1.1/datatables.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>-->
+	<script type="text/javascript" src="/Public/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="/Public/search.js"></script>
      <style>
         body        { padding-top:80px; }
     </style>
 </head>
-
+<header>
+	<a href="http://127.0.0.1:3000" class="btn btn-default"><i class="fa fa-cogs" aria-hidden="true"></i> GearHUB</a>
+</header>
 <body>
 	<br>
 	<br>
@@ -25,97 +29,25 @@
 		<% if(user){ %>
 		   <center><a href="/logout" class="btn btn-default btn-sm">Sair</a></center>
 		 <% } else{ %>  
-		   <center><a href="/login" class="btn btn-default"><span class= "fa fa-user"></span>Login</a></center>
+		   <center><a href="/login" class="btn btn-default"><span class= "fa fa-user"></span> Login</a></center>
 		<% } %>
 
 	    <br>	
 	    <br>
-	<div class="row">
-	    <form action="/library" method="post">
-		    <div class="col-md-3"></div>
-		    <div class="col-md-6 form-group">
-				<div class="input-group">
-				   <input type="text" class="form-control" name="procura" placeholder="Digite aqui sua busca!">
-				   <span class="input-group-btn">
-				        <button class="btn btn-default" type="submit">
-				        	<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-				        </button>
-				   </span>
-				</div>
-			</div>
-		    <div class="col-md-3"></div>
-	</div>
-	<div class="row">
-		 <div class="col-md-3"></div>
-	    <div class="col-md-6">
-	    	<div class="row">
-	    		<div class="col-md-4">
-	    			<center><input type="checkbox" name="artigo" value="artigo" checked>		Artigo</center>
-	    		</div>
-	    		<div class="col-md-4">
-	    			<center><input type="checkbox" name="monografia" value="monografia" checked>		Monografia</center>
-	    		</div>
-	    		<div class="col-md-4">
-	    			<center><input type="checkbox" name="relatorio" value="relatorio" checked>		Relatorios</center>
-	    		</div>
-	    	</div>
-	    </div>
-	    </form>
-	    <div class="col-md-3"></div>
-	</div>
-	<br>
-	<br>
-	<% if(user){ %>
+    <div class="form-group" id="carrega">
+    <p>Carregando a tabela aguarde</p>
+      <input type="hidden" class="form-control input-lg" id="search" placeholder="Digite aqui a sua busca">
+    </div>
+		<% if(user){ %>
 	   <a href="/upload" class="btn btn-default"><span class= "fa fa-cloud-upload"></span>Inserir Arquivo</a> 
 	   <a href="/signup" class="btn btn-default"><span class= "fa fa-user-plus"></span>Cadastrar novo Professor</a>
 	 <% } %>
-	<table class="table">
-	  <thead>
-	    <tr>
-	      <th>Título</th>
-	      <th>Autor</th>
-	      <th>Orientador</th>
-	      <th>Palavras-Chave</th>
-	      <th>Tipo</th>
-	      <th></th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	  <% for (var i = 0; i < query.length; i++){%>
-	  	 <tr>
-	      <td>	
-	      	<%= query[i].infoDoc.titulo %>
-	      </td>
-	      <td>
-	      	<%= query[i].infoDoc.autores %>
-	      </td>
-	      <td>
-	      	<%= query[i].infoDoc.orientador %>
-	      </td>
-	      <td>
-	      	<%= query[i].infoDoc.palavrasChave %>
-	      </td>
-	      <td>
-	      	<%= query[i].infoDoc.tipo %>
-	      </td>
-	      <td>
-	      <form action="/upload/" enctype="application/json">
-	      	<input type="hidden" name ="id" value=  <%= query[i]._id %> > 	      	
- 	      	<button type="submit" class="btn btn-default" aria-label="Left Align" name="press" value="ver">
-	      		<span class="fa fa-eye" aria-hidden="true"></span>
-	      	</button>
-			<% if(user){ %>
-				<button type="submit" class="btn btn-default" aria-label="Left Align" name="press" value="editar">
-		      		<span class="fa fa-pencil" aria-hidden="true"></span>
-		      	</button>
-			<%}%>
-			</form>
-	      </td>
-	    </tr>
-	  <%} %>
-	   
-	  </tbody>
-	</table>
+    <div id='results'>
+    	
+    		<div id='userGranted'><% if(user){ %><%}%></div>
+
+    </div>
+
 
 </body>
 

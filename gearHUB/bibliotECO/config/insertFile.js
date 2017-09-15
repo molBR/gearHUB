@@ -124,11 +124,19 @@ var EditFile = function(req,callback){
         else
             var binarySend = null;
         callback(fields,binarySend);
-    })
+    });
+}
 
-
-
+var readJson = function(callback){
+    fs.readFile(__dirname + '/data.json', 'utf8', function(err,data){
+        if(err){
+            console.log(err);
+        }
+        jsonData = JSON.parse(data);
+        callback(jsonData);
+    });
 }
 
 module.exports = {FileControl : FileControl,
-                  EditFile    : EditFile  };
+                  EditFile    : EditFile,
+                  readJson    : readJson    };
