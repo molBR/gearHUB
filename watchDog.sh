@@ -59,6 +59,8 @@ ts=`date ` #pega o horario
 echo $ts: "Checando.." #imprime o horario que foi feito a checagem
 cmd="sudo service mongod start"
 $cmd
+python /home/aluno/28882/gearHUB/PyTutor/v5-unity/bottle_server.py &
+
 check_process "node" #procura processos com esse nome
 
 

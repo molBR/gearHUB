@@ -18,6 +18,9 @@ except:
     import io as StringIO # py3
 import json
 import pg_logger
+import os
+os.chdir("/home/aluno/28882/gearHUB/PyTutor/v5-unity/")
+print os.getcwd()
 
 
 @route('/web_exec_<name:re:.+>.py')

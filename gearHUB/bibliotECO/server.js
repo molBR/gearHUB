@@ -18,6 +18,12 @@ var bodyParser   = require('body-parser'); //trocado
 var json		 = require('express-json'); //por esse
 var session      = require('express-session');
 var configDB = require('./config/database.js');
+var os = require('os');
+
+
+var interfaces = os.networkInterfaces();
+interfaces = interfaces.lo[0].address;
+
 
 
 // configuration ===============================================================
@@ -41,7 +47,7 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 
 // routes ======================================================================
-require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
+require('./app/routes.js')(app, passport, interfaces); // load our routes and pass in our app and fully configured passport
 
 
 // launch ======================================================================

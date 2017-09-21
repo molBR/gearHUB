@@ -1,0 +1,31 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<head>
+    <title>Arquivo inserido</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <style>
+        body        { padding-top:80px; word-wrap:break-word; }
+        .butoes     { margin-top:50px;}
+        #direita    { margin-left:40px;}
+    </style>
+</head>
+<body>
+    <div class="col-sm-2">
+        </div>
+    <div class="col-sm-8">
+            <div class="well">
+                <center><h3><span class="fa fa-check"></span> Usuário prestes a ser deletado!</h3></center>
+                <center>
+                <p> Deseja realmente deletar? </p>
+                <form action="/delThis" method="post">
+                    <input type="hidden" name="delThis" value="<%=delUser %>">
+                    <a href="/upload"> <button type="submit" name="botao" class="btn btn-warning btn-lg butoes" value="del">Sim</button></a>
+                <a href="/"><button href="/"name="bNo" id="direita" type="submit" class="btn btn-warning btn-lg butoes">Não</button></a>
+                 </form>
+                </center>
+            </div>
+        </div>
+</body>
+</html>

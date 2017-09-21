@@ -1,0 +1,6 @@
+var os = require('os');
+
+var interfaces = os.networkInterfaces();
+var addresses = [];
+
+console.log(interfaces.lo[0].address);

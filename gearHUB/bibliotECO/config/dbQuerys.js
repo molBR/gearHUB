@@ -1,6 +1,26 @@
-var Document 	= require('../app/models/document');
-var insFile         = require('./insertFile');
+var Document 	= require('../app/models/document')
+var User 		= require('../app/models/users')
+var insFile     = require('./insertFile');
 
+
+var queryAllUsers = function(callback){
+	var q = User.find({});
+	q.exec(function(err,infoUser){
+		callback(infoUser);
+	})
+}
+
+var deleteUser = function(id,callback){
+	var q = User.remove({_id : id})
+	q.exec(function(err){
+		if(!err){
+			callback({status : "Success"});
+		}else{
+			callback({status : "Fail",
+					  message    : err });
+		}	
+	});
+}
 
 var queryDocument = function(callback){
 
@@ -60,7 +80,9 @@ var deleteDocument = function(doc,callback){
 
 
 
-module.exports = {queryDocument : queryDocument,
+module.exports = {queryAllUsers : queryAllUsers,
+				  deleteUser	: deleteUser,
+				  queryDocument : queryDocument,
 				  getDocument 	: getDocument,
 				  editDocument	: editDocument,
 				  deleteDocument : deleteDocument,

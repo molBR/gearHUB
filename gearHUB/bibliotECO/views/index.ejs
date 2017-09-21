@@ -14,7 +14,7 @@
     </style>
 </head>
 <header>
-	<a href="http://127.0.0.1:3000" class="btn btn-default"><i class="fa fa-cogs" aria-hidden="true"></i> GearHUB</a>
+	<a href="http://<%= interf %>" class="btn btn-default"><i class="fa fa-cogs" aria-hidden="true"></i> GearHUB</a>
 </header>
 <body>
 	<br>
@@ -27,7 +27,11 @@
 	</div>	
 
 		<% if(user){ %>
-		   <center><a href="/logout" class="btn btn-default btn-sm">Sair</a></center>
+		   <% if(user == "noUser"){ %>
+			   	<center><a href="/signup" class="btn btn-default btn-sm">Signup</a></center>
+			   <% } else{ %>
+			   	<center><a href="/logout" class="btn btn-default btn-sm">Sair</a></center>
+			   <% } %>
 		 <% } else{ %>  
 		   <center><a href="/login" class="btn btn-default"><span class= "fa fa-user"></span> Login</a></center>
 		<% } %>

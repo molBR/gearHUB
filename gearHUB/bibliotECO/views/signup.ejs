@@ -5,11 +5,16 @@
     <title>Cadastro de professor</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="/Public/jquery-3.2.1.js"></script>
     <style>
         body        { padding-top:80px; }
     </style>
 </head>
 <body>
+
+
+
 <div class="container">
 
 <div class="col-sm-6 col-sm-offset-3">
@@ -40,6 +45,7 @@
             <input type="text" class="form-control" name="siape">
         </div>
         <button type="submit" class="btn btn-warning btn-lg">Cadastrar Professor</button>
+
     </form>
 
     <hr>
@@ -48,6 +54,39 @@
 
 </div>
 
+
 </div>
+
+<center>
+<% if(admin.local.acesso == "admin"){ %>
+<h2>USUÁRIOS CADASTRADOS</h2>
+
+<% for(var i=0; i<users.length; i++) { %>
+    <% if (admin.local.siape != users[i].local.siape){ %>
+        <div class="well">
+           <li><label>Nome: </label><%= users[i].local.name %></li>
+           <ul>
+            <form action="/delUser" method="post">
+            <label>Email: </label><%=users[i].local.email %><br> 
+            <label>SIAPE: </label><%=users[i].local.siape %><br>
+            <button id="bot" type="submit" name="botao" value="<%=users[i]._id%>"><i class="fa fa-trash" aria-hidden="true"  ></i></button>
+           </ul>
+       </div>
+    <% } %>
+
+<% } %>
+
+
+<% } %>
+
+
+</center>
+
+
+<script>
+$( "#bot" ).click(function() {
+  alert( "Handler for .click() called." );
+});
+</script>
 </body>
 </html>

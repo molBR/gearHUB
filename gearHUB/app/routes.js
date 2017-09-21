@@ -1,14 +1,21 @@
-module.exports = function(app){
+module.exports = function(app,interfaces){
 
 
 
 	app.get('/',function(req,res){
-
-		res.sendFile('index.html');
+        res.render('index.ejs',{
+        	inter : interfaces
+        });
 	});
 
 	app.get('/bib',function(req,res){
-		res.redirect("http://127.0.0.1:8080")
+		var dir = "http://"+interfaces+":8080";
+		res.redirect(dir);
+	});
+
+	app.get('/pyTutor',function(req,res){
+		var dir = "http://"+interfaces+":8003/visualize.html";
+		res.redirect(dir);
 	});
 
 

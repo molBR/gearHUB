@@ -1,1 +1,23 @@
-Pau ta quebrando na porta: 8080
+[90mGET /login [32m200 [90m8ms - 1.21kb[0m
+[90mPOST /login [36m302 [90m57ms - 46b[0m
+[90mGET / [32m200 [90m3ms - 1.6kb[0m
+[90mGET /data.json [36m304 [90m5ms[0m
+[ { local: 
+     { name: 'teste',
+       email: 'teste',
+       password: '$2a$08$KJVcsRfDxQXVTgmgy4LXIegOlSnXkqZzQzMjHF5zQufBoUXcNYsme',
+       siape: 'teste' },
+    __v: 0,
+    _id: 59c27b7f261c58551a25abb5 },
+  { local: 
+     { name: 'dapiojsdi',
+       email: 'jdioj',
+       password: '$2a$08$K0JNpSgXGZBmrVrZPAgBYOvKFmZ0sRII8GL8WIJzxNDHCGoB4fat6',
+       siape: 'oidj' },
+    __v: 0,
+    _id: 59c29cf49eeb703a0ab58b0c } ]
+[90mGET /signup [36m304 [90m9ms[0m
+oidj
+[90mPOST /delUser [32m200 [90m120006ms[0m
+oidj
+[90mPOST /delUser [32m200 [90m120033ms[0m

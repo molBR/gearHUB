@@ -5,7 +5,7 @@ var LocalStrategy   = require('passport-local').Strategy;
 
 
 
-
+var bd              = require('./dbQuerys')
 
 // load up the user model
 var User            = require('../app/models/users');
@@ -62,26 +62,37 @@ module.exports = function(passport) {
 
             // check to see if theres already a user with that email
             if (user) {
-                return done(null, false, req.flash('signupMessage', 'Email já existe'));
+                return done(null, false, req.flash('signupMessage', 'SIAPE já existe'));
             } else {
 
                 // if there is no user with that Email
                 // create the user
                 var newUser            = new User();
-
+                var aux = {admin : "admin",
+                           user  : "user"}
                 // set the user's local credentials
                 newUser.local.name     = req.body.name;
                 newUser.local.email    = req.body.email;
                 newUser.local.password = newUser.generateHash(password);  
                 newUser.local.siape    = req.body.siape;
+                newUser.local.acesso   = aux.user;
+                bd.queryAllUsers(function(Users){
+                    if(!Users.length){
+                        console.log(aux.admin)
+                        newUser.local.acesso = aux.admin;
+                        console.log(newUser.local.acesso)
+                    }
+                    newUser.save(function(err) {
+                        if (err)
+                            throw err;
+                           return done(null, newUser);
+                    });
+                });
+
 
                 // save the user
             // save the user
-            newUser.save(function(err) {
-                if (err)
-                    throw err;
-                   return done(null, newUser);
-            });
+
             }
 
         });    

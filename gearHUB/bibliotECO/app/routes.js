@@ -1,6 +1,6 @@
 var insFile         = require('../config/insertFile');
 var bd              = require('../config/dbQuerys');
-module.exports = function(app, passport) {
+module.exports = function(app, passport,interfaces) {
 
     // =====================================
     // HOME PAGE (with login links) ========
@@ -8,9 +8,15 @@ module.exports = function(app, passport) {
 
 
     app.get('/', function(req, res) {
-        res.render('index.ejs',{
-            user : req.user
+        bd.queryAllUsers(function(Users){
+            if(!Users.length)
+                req.user = "noUser"
+            res.render('index.ejs',{
+                user : req.user,
+                interf : interfaces
+            });
         });
+
 
     });
 
@@ -39,16 +45,39 @@ module.exports = function(app, passport) {
     app.get('/signup',isLoggedIn,function(req, res) {
 
         // render the page and pass in any flash data if it exists
-        res.render('signup.ejs', { message: req.flash('signupMessage') });
+        bd.queryAllUsers(function(Users){
+            res.render('signup.ejs', { 
+            message: req.flash('signupMessage'),
+            users: Users,
+            admin : req.user
+        });
+        });
+        
     });
 
     // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect : '/', //redirect to the secure profile section
+        successRedirect : '/logout', //redirect to the secure profile section
         failureRedirect : '/signup', // redirect back to the signup page if there is an error
         failureFlash : true //allow flash messages
     }));
 
+    app.post('/delThis',isLoggedIn,function(req,res){
+        bd.deleteUser(req.body.delThis,function(){
+            res.redirect('/');
+        });
+    })
+
+    app.post('/delUser',isLoggedIn,function(req, res){
+        if(req.body.botao=="del"){
+          
+        }
+        res.render('delUser.ejs',{
+            delUser : req.body.botao
+        });
+
+
+    });
     // =====================================
     // PROFILE SECTION =====================
     // =====================================
@@ -71,8 +100,8 @@ module.exports = function(app, passport) {
             });
         }else if(but=="editar"){
             bd.getDocument(aux,function(resposta){ 
-                res.render('editar.ejs',{
-                    query : resposta[0],
+                res.render('editar.ejs',
+{                       query : resposta[0],
                     user : req.user 
                 });
             });          
@@ -125,6 +154,7 @@ module.exports = function(app, passport) {
     });
 
 
+
     app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
@@ -139,12 +169,20 @@ module.exports = function(app, passport) {
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
 
+    bd.queryAllUsers(function(Users){
+        if(!Users.length){
+            return next();
+        }
+        else if (req.isAuthenticated())
+            return next();
+        else
+            res.redirect('/');
+    });
+
     // if user is authenticated in the session, carry on 
-    if (req.isAuthenticated())
-        return next();
+
 
     // if they aren't redirect them to the home page
-    res.redirect('/');
 };
 
 
