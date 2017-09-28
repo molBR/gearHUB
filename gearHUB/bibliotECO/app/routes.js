@@ -63,21 +63,24 @@ module.exports = function(app, passport,interfaces) {
     }));
 
     app.post('/delThis',isLoggedIn,function(req,res){
-        bd.deleteUser(req.body.delThis,function(){
-            res.redirect('/');
-        });
+
+        if(req.body.botao=="del"){
+            bd.deleteUser(req.body.delThis,function(){
+                res.redirect('/');
+            }); 
+        }else res.redirect('/');
+
     })
 
     app.post('/delUser',isLoggedIn,function(req, res){
-        if(req.body.botao=="del"){
-          
-        }
         res.render('delUser.ejs',{
             delUser : req.body.botao
         });
 
 
     });
+
+    app.get('/delUser')
     // =====================================
     // PROFILE SECTION =====================
     // =====================================

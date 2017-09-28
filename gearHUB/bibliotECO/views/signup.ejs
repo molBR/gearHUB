@@ -1,4 +1,4 @@
-<!-- views/signup.ejs -->
+:<!-- views/signup.ejs -->
 <!doctype html>
 <html>
 <head>
@@ -58,6 +58,8 @@
 </div>
 
 <center>
+<% if(admin){ %>
+
 <% if(admin.local.acesso == "admin"){ %>
 <h2>USUÁRIOS CADASTRADOS</h2>
 
@@ -80,13 +82,10 @@
 <% } %>
 
 
+<% } %>
+
+
+
 </center>
-
-
-<script>
-$( "#bot" ).click(function() {
-  alert( "Handler for .click() called." );
-});
-</script>
 </body>
 </html>
